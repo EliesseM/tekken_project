@@ -1,0 +1,36 @@
+<h2>{{ character.name }}</h2>
+<p>{{ character.description }}</p>
+
+<p>
+  Moyenne des votes :{% if averageRating is not null %}
+    {{ averageRating|number_format(2, ',', '.') }}/5
+  {% else %}
+    Pas encore noté
+  {% endif %}
+</p>
+
+<h3>Noter ce personnage</h3>
+
+{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+  {{ form_start(ratingForm) }}
+  {{ form_row(ratingForm.score) }}
+  <button type="submit">Envoyer</button>
+  {{ form_end(ratingForm) }}
+{% else %}
+  <p>
+    <a href="{{ path('app_login') }}">Connecte-toi</a> pour voter.
+  </p>
+{% endif %}
+
+{% if existingRating %}
+  <p>Tu as déjà voté : {{ existingRating.score }}/5</p>
+{% elseif is_granted('IS_AUTHENTICATED_FULLY') %}
+  {{ form_start(ratingForm) }}
+  {{ form_row(ratingForm.score) }}
+  <button type="submit">Envoyer</button>
+  {{ form_end(ratingForm) }}
+{% else %}
+  <p>
+    <a href="{{ path('app_login') }}">Connecte-toi</a> pour voter.
+  </p>
+{% endif %}

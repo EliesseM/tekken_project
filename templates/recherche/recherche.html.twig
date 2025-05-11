@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  Recherche de personnages
+{% endblock %}
+
+{% block body %}
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-2xl font-bold mb-6">Recherche de personnages</h1>
+
+    <div class="bg-white p-6 rounded shadow mb-6">
+      {{ form_start(form) }}
+      <div class="mb-4">{{ form_row(form.search) }}</div>
+      <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">Rechercher</button>
+      {{ form_end(form) }}
+    </div>
+
+    {% if characters is not empty %}
+      <h2 class="text-xl font-semibold mb-4">Résultats :</h2>
+      <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {% for character in characters %}
+          <li class="bg-gray-100 p-4 rounded shadow">
+            <h3 class="text-lg font-medium">{{ character.name }}</h3>
+            {# Tu peux ajouter ici un lien ou des détails si tu veux #}
+          </li>
+        {% endfor %}
+      </ul>
+    {% elseif form is defined and form.vars.submitted %}
+      <p class="text-red-500 mt-4">Aucun personnage trouvé.</p>
+    {% endif %}
+  </div>
+{% endblock %}
