@@ -11,7 +11,7 @@ final class TopController extends AbstractController
     #[Route('/top', name: 'app_top')]
     public function index(): Response
     {
-        return $this->render('top/index.html.twig', [
+        return $this->render('top/top.html.twig', [
             'controller_name' => 'TopController',
         ]);
     }

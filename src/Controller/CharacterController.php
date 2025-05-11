@@ -18,7 +18,7 @@ final class CharacterController extends AbstractController
     #[Route('/character/{id}', name: 'app_character')]
     public function index(): Response
     {
-        return $this->render('character/index.html.twig', [
+        return $this->render('character/show.html.twig', [
             'controller_name' => 'CharacterController',
         ]);
     }

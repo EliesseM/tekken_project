@@ -1,17 +1,50 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+  <head>
+    <meta charset="UTF-8" />
+    <title>
+      {% block title %}
+        Welcome!
+      {% endblock %}
+    </title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>" />
+    {% block stylesheets %}
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+    {% endblock %}
+
+    {% block javascripts %}
+      {% block importmap %}
+        {{ importmap('app') }}
+      {% endblock %}
+    {% endblock %}
+  </head>
+  <body>
+    <nav class="bg-gray-800 text-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          <div class="flex items-center">
+            <a href="{{ path('app_home') }}" class="text-xl font-bold text-white hover:text-gray-300">Personnage</a>
+            <div class="ml-10 flex items-baseline space-x-4">
+              <a href="{{ path('app_home') }}" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Accueil</a>
+              <a href="{{ path('app_rating') }}" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Note</a>
+              <a href="{{ path('app_recherche') }}" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Recherche</a>
+              <a href="{{ path('app_top') }}" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Score</a>
+              <a href="{{ path('admin') }}" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Administration</a>
+              <a href="{{ path('login') }}" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Administration</a>
+              {% if app.user %}
+                <span>Bienvenue {{ app.user.username }}</span>
+                <a href="{{ path('app_logout') }}" class="ml-4 text-sm">Déconnexion</a>
+              {% else %}
+                <a href="{{ path('app_login') }}" class="ml-4 text-sm">Connexion</a>
+                <a href="{{ path('app_register') }}" class="ml-4 text-sm">Inscription</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    {% block body %}
+
+    {% endblock %}
+  </body>
 </html>

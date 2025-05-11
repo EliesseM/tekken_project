@@ -9,14 +9,17 @@ use App\Entity\Rating;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Faker\Factory;
 
 class AppFixtures extends Fixture
 {
     private UserPasswordHasherInterface $hasher;
+    private \Faker\Generator $faker;
 
     public function __construct(UserPasswordHasherInterface $hasher)
     {
         $this->hasher = $hasher;
+        $this->faker = Factory::create();
     }
 
     public function load(ObjectManager $manager): void
@@ -183,24 +186,46 @@ class AppFixtures extends Fixture
             $characters[] = $character;
         }
 
-        // Création d'un utilisateur
-        $user = new User();
-        $user->setUsername('testuser')
-            ->setRoles(['ROLE_USER']);
-        $hashedPassword = $this->hasher->hashPassword($user, 'password');
-        $user->setPassword($hashedPassword);
-        $manager->persist($user);
+        // Ajout d’un utilisateur admin
+        $admin = new User();
+        $admin->setUsername('admin')
+            ->setRoles(['ROLE_ADMIN']);
+        $adminPassword = $this->hasher->hashPassword($admin, 'adminpass');
+        $admin->setPassword($adminPassword);
+        $manager->persist($admin);
 
-        // Ajout de notes pour chaque personnage
-        foreach ($characters as $character) {
-            $rating = new Rating();
-            $rating->setUser($user)
-                ->setCharacter($character)
-                ->setScore(rand(1, 5))
-                ->setCreatedAt(new \DateTime());
-            $manager->persist($rating);
+
+        // Ajout de plusieurs utilisateurs avec Faker
+        for ($i = 0; $i < 10; $i++) { // Générer 10 utilisateurs
+            $user = new User();
+            $user->setUsername($this->faker->userName()) // Génère un nom d'utilisateur
+                ->setRoles(['ROLE_USER']);
+
+            $password = $this->faker->password(); // Génère un mot de passe
+            $hashedPassword = $this->hasher->hashPassword($user, $password);
+            $user->setPassword($hashedPassword);
+
+            $manager->persist($user);
+
+            // Création d'un utilisateur
+            $user = new User();
+            $user->setUsername('testuser')
+                ->setRoles(['ROLE_USER']);
+            $hashedPassword = $this->hasher->hashPassword($user, 'password');
+            $user->setPassword($hashedPassword);
+            $manager->persist($user);
+
+            // Ajout de notes pour chaque personnage
+            foreach ($characters as $character) {
+                $rating = new Rating();
+                $rating->setUser($user)
+                    ->setCharacter($character)
+                    ->setScore(rand(1, 5))
+                    ->setCreatedAt(new \DateTime());
+                $manager->persist($rating);
+            }
+
+            $manager->flush();
         }
-
-        $manager->flush();
     }
 }
