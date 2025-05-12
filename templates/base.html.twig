@@ -23,7 +23,7 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
           <div class="flex items-center">
-            <a href="{{ path('app_home') }}" class="text-xl font-bold text-white hover:text-gray-300">Personnage</a>
+            <a href="{{ path('character_list') }}" class="text-xl font-bold text-white hover:text-gray-300">Personnage</a>
             <div class="ml-10 flex items-baseline space-x-4">
               <a href="{{ path('app_home') }}" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Accueil</a>
               <a href="{{ path('app_rating') }}" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Note</a>
@@ -31,7 +31,7 @@
               <a href="{{ path('app_top') }}" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Score</a>
               <a href="{{ path('admin') }}" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Administration</a>
               {% if app.user %}
-                <span>Bienvenue {{ app.user.username }}</span>
+                <span>Bienvenue {{ app.user.username }} ({{ app.user.email }})</span>
                 <a href="{{ path('app_logout') }}" class="ml-4 text-sm">Déconnexion</a>
               {% else %}
                 <a href="{{ path('app_login') }}" class="ml-4 text-sm">Connexion</a>

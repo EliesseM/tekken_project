@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  Personnages Tekken
+{% endblock %}
+
+{% block body %}
+  <div class="max-w-6xl mx-auto px-4 py-6">
+    <h1 class="text-4xl font-bold mb-8 text-center text-gray-800">Tous les personnages</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {% for character in characters %}
+        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300">
+          <img src="{{ asset('images/' ~ character.image) }}" alt="{{ character.name }}" class="mx-auto w-72 h-48 object-cover rounded-lg mt-4" />
+          <div class="p-4">
+            <h2 class="text-xl font-semibold mb-2">{{ character.name }}</h2>
+            <p class="text-sm text-gray-600 mb-3">{{ character.description|u.truncate(120, '...') }}</p>
+            <p class="text-xs text-gray-500 italic mb-2">
+              Apparaît dans :{% for game in character.games %}
+                {{ loop.first ? '' : ', ' }}{{ game.title }}
+              {% endfor %}
+            </p>
+            <p class="text-sm text-yellow-600 font-medium">
+              ⭐ Note moyenne :{% set avg = ratings[character.id] ?? '—' %}
+              {{ avg ? (avg|number_format(1)) ~ '/5' : 'Pas encore noté' }}
+            </p>
+            <a href="{{ path('character_show', { id: character.id }) }}" class="inline-block mt-3 text-indigo-600 hover:underline text-sm">Voir le personnage →</a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

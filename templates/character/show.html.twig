@@ -1,36 +1,41 @@
-<h2>{{ character.name }}</h2>
-<p>{{ character.description }}</p>
+{% extends 'base.html.twig' %}
 
-<p>
-  Moyenne des votes :{% if averageRating is not null %}
-    {{ averageRating|number_format(2, ',', '.') }}/5
-  {% else %}
-    Pas encore noté
-  {% endif %}
-</p>
+{% block title %}
+  {{ character.name }}
+{% endblock %}
 
-<h3>Noter ce personnage</h3>
+{% block body %}
+  <div class="max-w-4xl mx-auto px-4 py-6">
+    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+      <img src="{{ asset('images/' ~ character.image) }}" alt="{{ character.name }}" class="mx-auto w-72 h-48 object-cover rounded-lg mt-4" />
+      <div class="p-4">
+        <h2 class="text-3xl font-semibold mb-4">{{ character.name }}</h2>
+        <p class="text-sm text-gray-600 mb-3">{{ character.description }}</p>
+        <p class="text-xs text-gray-500 italic mb-2">
+          Apparaît dans :{% for game in character.games %}
+            {{ loop.first ? '' : ', ' }}{{ game.title }}
+          {% endfor %}
+        </p>
+        <p class="text-sm text-yellow-600 font-medium">
+          ⭐ Note moyenne :{% set avg = ratings[character.id] ?? '—' %}
+          {{ avg ? (avg|number_format(1)) ~ '/5' : 'Pas encore noté' }}
+        </p>
 
-{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-  {{ form_start(ratingForm) }}
-  {{ form_row(ratingForm.score) }}
-  <button type="submit">Envoyer</button>
-  {{ form_end(ratingForm) }}
-{% else %}
-  <p>
-    <a href="{{ path('app_login') }}">Connecte-toi</a> pour voter.
-  </p>
-{% endif %}
-
-{% if existingRating %}
-  <p>Tu as déjà voté : {{ existingRating.score }}/5</p>
-{% elseif is_granted('IS_AUTHENTICATED_FULLY') %}
-  {{ form_start(ratingForm) }}
-  {{ form_row(ratingForm.score) }}
-  <button type="submit">Envoyer</button>
-  {{ form_end(ratingForm) }}
-{% else %}
-  <p>
-    <a href="{{ path('app_login') }}">Connecte-toi</a> pour voter.
-  </p>
-{% endif %}
+        {% if app.user %}
+          {% if existingRating %}
+            <p>Tu as déjà noté ce personnage.</p>
+          {% elseif ratingForm %}
+            {{ form_start(ratingForm) }}
+            {{ form_widget(ratingForm) }}
+            <button type="submit" class="btn btn-primary">Noter</button>
+            {{ form_end(ratingForm) }}
+          {% endif %}
+        {% else %}
+          <p class="text-red-500">
+            Tu dois être connecté pour noter ce personnage. <a href="{{ path('app_login') }}" class="text-blue-500">Se connecter</a>
+          </p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

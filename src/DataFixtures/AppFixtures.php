@@ -124,7 +124,7 @@ class AppFixtures extends Fixture
             ],
             [
                 'name' => 'Devil',
-                'games' => [$tekken1, $tekken2],
+                'games' => [$tekken2],
                 'description' => 'Incarnation maléfique de Kazuya, Devil représente la part sombre de son âme.',
             ],
             [
@@ -172,23 +172,33 @@ class AppFixtures extends Fixture
         $characters = [];
 
         foreach ($charactersData as $data) {
-            $character = new Character();
-            $character->setName($data['name'])
-                ->setDescription($data['description'])
-                ->setImage(strtolower(str_replace([' ', '.', '\''], '_', $data['name'])) . '.jpg')
-                ->setCreatedAt(new \DateTimeImmutable());
-
             foreach ($data['games'] as $game) {
-                $character->addGame($game);
-            }
+                $character = new Character();
+                $character->setName($data['name'])
+                    ->setDescription($data['description'])
+                    ->setCreatedAt(new \DateTimeImmutable());
 
-            $manager->persist($character);
-            $characters[] = $character;
+                // Détermination du nom d'image selon le jeu
+                $gamePrefix = str_replace(' ', '_', $game->getTitle()); // Tekken_1 ou Tekken2
+                $charName = str_replace([' ', '.', '\'', '-'], '_', $data['name']);
+                $filename = $gamePrefix . '_' . $charName . '.webp';
+
+                // Affectation unique du jeu
+                $character->addGame($game);
+
+                // Définir le champ image
+                $character->setImage($filename);
+
+                $manager->persist($character);
+                $characters[] = $character;
+            }
         }
+
 
         // Ajout d’un utilisateur admin
         $admin = new User();
         $admin->setUsername('admin')
+            ->setEmail('admin@tekken.com') // <-- email ajouté ici
             ->setRoles(['ROLE_ADMIN']);
         $adminPassword = $this->hasher->hashPassword($admin, 'adminpass');
         $admin->setPassword($adminPassword);
@@ -196,22 +206,14 @@ class AppFixtures extends Fixture
 
 
         // Ajout de plusieurs utilisateurs avec Faker
-        for ($i = 0; $i < 10; $i++) { // Générer 10 utilisateurs
+        for ($i = 0; $i < 10; $i++) {
             $user = new User();
-            $user->setUsername($this->faker->userName()) // Génère un nom d'utilisateur
+            $user->setUsername($this->faker->userName())
+                ->setEmail($this->faker->email()) // <-- email ajouté ici
                 ->setRoles(['ROLE_USER']);
 
-            $password = $this->faker->password(); // Génère un mot de passe
+            $password = $this->faker->password();
             $hashedPassword = $this->hasher->hashPassword($user, $password);
-            $user->setPassword($hashedPassword);
-
-            $manager->persist($user);
-
-            // Création d'un utilisateur
-            $user = new User();
-            $user->setUsername('testuser')
-                ->setRoles(['ROLE_USER']);
-            $hashedPassword = $this->hasher->hashPassword($user, 'password');
             $user->setPassword($hashedPassword);
             $manager->persist($user);
 
@@ -224,8 +226,16 @@ class AppFixtures extends Fixture
                     ->setCreatedAt(new \DateTime());
                 $manager->persist($rating);
             }
-
-            $manager->flush();
         }
+        // Utilisateur de test fixe
+        $user = new User();
+        $user->setUsername('testuser')
+            ->setEmail('test1@tekken.com') // <-- email ajouté ici
+            ->setRoles(['ROLE_USER']);
+        $hashedPassword = $this->hasher->hashPassword($user, 'password');
+        $user->setPassword($hashedPassword);
+        $manager->persist($user);
+
+        $manager->flush();
     }
 }
