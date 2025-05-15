@@ -5,29 +5,34 @@
 {% endblock %}
 
 {% block body %}
-  <div class="max-w-6xl mx-auto px-4 py-6">
-    <h1 class="text-4xl font-bold mb-8 text-center text-gray-800">Tous les personnages</h1>
+  <div class="min-h-screen bg-gradient-to-br from-black via-gray-900 to-red-900 text-white py-12 px-6">
+    <div class="max-w-7xl mx-auto bg-gray-800 bg-opacity-90 p-10 rounded-2xl shadow-2xl border border-yellow-500 relative">
+      <!-- Effet de lumière arrière -->
+      <div class="absolute -inset-1 bg-gradient-to-br from-red-700 via-yellow-400 to-red-700 blur-xl opacity-20 rounded-2xl"></div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {% for character in characters %}
-        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300">
-          <img src="{{ asset('images/' ~ character.image) }}" alt="{{ character.name }}" class="mx-auto w-72 h-48 object-cover rounded-lg mt-4" />
-          <div class="p-4">
-            <h2 class="text-xl font-semibold mb-2">{{ character.name }}</h2>
-            <p class="text-sm text-gray-600 mb-3">{{ character.description|u.truncate(120, '...') }}</p>
-            <p class="text-xs text-gray-500 italic mb-2">
-              Apparaît dans :{% for game in character.games %}
-                {{ loop.first ? '' : ', ' }}{{ game.title }}
-              {% endfor %}
-            </p>
-            <p class="text-sm text-yellow-600 font-medium">
-              ⭐ Note moyenne :{% set avg = ratings[character.id] ?? '—' %}
-              {{ avg ? (avg|number_format(1)) ~ '/5' : 'Pas encore noté' }}
-            </p>
-            <a href="{{ path('character_show', { id: character.id }) }}" class="inline-block mt-3 text-indigo-600 hover:underline text-sm">Voir le personnage →</a>
+      <h1 class="relative z-10 text-5xl font-extrabold text-center text-yellow-400 mb-12 tracking-widest drop-shadow-lg">🥋 COMBATTANTS 🥋</h1>
+
+      <div class="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {% for character in characters %}
+          <div class="bg-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-yellow-500 transition transform hover:-translate-y-1 border border-red-500">
+            <img src="{{ asset('images/' ~ character.image) }}" alt="{{ character.name }}" class="mx-auto w-65 h-52 object-cover rounded-t-xl" />
+            <div class="p-5">
+              <h2 class="text-xl text-yellow-400 font-bold mb-2">{{ character.name }}</h2>
+              <p class="text-sm text-gray-300 mb-3">{{ character.description|u.truncate(120, '...') }}</p>
+              <p class="text-xs text-gray-400 italic mb-2">
+                Apparaît dans :{% for game in character.games %}
+                  {{ loop.first ? '' : ', ' }}{{ game.title }}
+                {% endfor %}
+              </p>
+              <p class="text-sm text-red-400 font-semibold">
+                ⭐ Note moyenne :{% set avg = ratings[character.id] ?? '—' %}
+                {{ avg ? (avg|number_format(1)) ~ '/5' : 'Pas encore noté' }}
+              </p>
+              <a href="{{ path('character_show', { id: character.id }) }}" class="inline-block mt-4 text-red-400 hover:text-yellow-400 font-semibold text-sm transition">➤ Voir le personnage</a>
+            </div>
           </div>
-        </div>
-      {% endfor %}
+        {% endfor %}
+      </div>
     </div>
   </div>
 {% endblock %}

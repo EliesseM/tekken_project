@@ -15,13 +15,29 @@ class RatingRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Rating::class);
     }
+    public function getAverageRatingsForAllCharacters(): array
+    {
+        $results = $this->createQueryBuilder('r')
+            ->select('IDENTITY(r.character) AS characterId, AVG(r.score) AS avgScore')
+            ->groupBy('r.character')
+            ->getQuery()
+            ->getResult();
+
+        // Transformer en tableau [characterId => moyenne]
+        $averages = [];
+        foreach ($results as $row) {
+            $averages[$row['characterId']] = $row['avgScore'];
+        }
+
+        return $averages;
+    }
     public function getAverageRatingForCharacter(int $characterId): ?float
     {
-        $qb = $this->createQueryBuilder('r')
+        return (float) $this->createQueryBuilder('r')
             ->select('AVG(r.score) as avgRating')
             ->where('r.character = :characterId')
-            ->setParameter('characterId', $characterId);
-
-        return (float) $qb->getQuery()->getSingleScalarResult();
+            ->setParameter('characterId', $characterId)
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 }

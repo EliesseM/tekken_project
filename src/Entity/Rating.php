@@ -34,6 +34,11 @@ class Rating
 
     // SETTERS & GETTERS
 
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
     public function getCharacter(): Character
     {
         return $this->character;

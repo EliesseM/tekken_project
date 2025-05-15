@@ -38,6 +38,8 @@ final class CharacterController extends AbstractController
                 $rating = new Rating();
                 $rating->setCharacter($character);
                 $rating->setUser($user);
+                $rating->setCreatedAt(new \DateTime());
+                $rating->setScore(1);
 
                 $form = $this->createForm(RatingType::class, $rating);
                 $form->handleRequest($request);
@@ -84,12 +86,35 @@ final class CharacterController extends AbstractController
         ]);
     }
     #[Route('/characters', name: 'character_list')]
-    public function list(CharacterRepository $characterRepo): Response
+    #[Route('/characters', name: 'character_list')]
+    public function list(CharacterRepository $characterRepo, RatingRepository $ratingRepo): Response
     {
         $characters = $characterRepo->findAll();
 
+        // Récupérer toutes les moyennes sous forme de tableau associatif
+        $averageRatings = $ratingRepo->getAverageRatingsForAllCharacters();
+
         return $this->render('character/index.html.twig', [
             'characters' => $characters,
+            'ratings' => $averageRatings, // <- clé = character.id, valeur = moyenne
+        ]);
+    }
+    #[Route('/top', name: 'app_top')]
+    public function topRated(EntityManagerInterface $entityManager): Response
+    {
+        $topCharacters = $entityManager->createQuery(
+            'SELECT c as character, AVG(r.score) as avgRating
+     FROM App\Entity\Character c
+     JOIN c.ratings r
+     GROUP BY c.id
+     ORDER BY avgRating DESC'
+        )
+            ->setMaxResults(10)
+            ->getArrayResult(); // 👈 très important ici
+
+
+        return $this->render('top/top.html.twig', [
+            'topCharacters' => $topCharacters,
         ]);
     }
 }

@@ -5,34 +5,58 @@
 {% endblock %}
 
 {% block body %}
-  <div class="max-w-4xl mx-auto px-4 py-6">
-    <div class="bg-white rounded-lg shadow-md overflow-hidden">
-      <img src="{{ asset('images/' ~ character.image) }}" alt="{{ character.name }}" class="mx-auto w-72 h-48 object-cover rounded-lg mt-4" />
-      <div class="p-4">
-        <h2 class="text-3xl font-semibold mb-4">{{ character.name }}</h2>
-        <p class="text-sm text-gray-600 mb-3">{{ character.description }}</p>
-        <p class="text-xs text-gray-500 italic mb-2">
+  <div class="min-h-screen bg-gradient-to-b from-black via-gray-900 to-black text-white py-12 px-6">
+    <div class="max-w-4xl mx-auto bg-gray-800 bg-opacity-90 p-8 rounded-2xl shadow-2xl border border-red-600 relative">
+      <!-- Effet électrique/foudre ambiance Tekken -->
+      <div class="absolute -inset-1 bg-gradient-to-r from-red-600 via-yellow-400 to-red-600 blur-xl opacity-10 rounded-2xl"></div>
+
+      <div class="relative z-10 flex flex-col items-center">
+        <img src="{{ asset('images/' ~ character.image) }}" alt="{{ character.name }}" class="rounded-xl shadow-lg border-4 border-red-500 w-72 max-h-72 object-cover mb-6" />
+
+        <h2 class="text-4xl font-extrabold text-red-700 drop-shadow-lg mb-4 tracking-wider">{{ character.name|upper }}</h2>
+
+        <p class="text white text-base leading-relaxed mb-4 text-center max-w-2xl">{{ character.description }}</p>
+
+        <p class="text-sm text-white italic mb-2">
           Apparaît dans :{% for game in character.games %}
             {{ loop.first ? '' : ', ' }}{{ game.title }}
           {% endfor %}
         </p>
-        <p class="text-sm text-yellow-600 font-medium">
-          ⭐ Note moyenne :{% set avg = ratings[character.id] ?? '—' %}
+
+        <p class="text-lg text-red-600 font-bold mb-6">
+          ⭐ Note moyenne :{% set avg = averageRating ?? '—' %}
           {{ avg ? (avg|number_format(1)) ~ '/5' : 'Pas encore noté' }}
         </p>
 
         {% if app.user %}
           {% if existingRating %}
-            <p>Tu as déjà noté ce personnage.</p>
+            <p class="text-green-400 font-medium">Merci pour ta note !</p>
           {% elseif ratingForm %}
             {{ form_start(ratingForm) }}
-            {{ form_widget(ratingForm) }}
-            <button type="submit" class="btn btn-primary">Noter</button>
+            <div class="bg-gray-900 bg-opacity-80 p-6 rounded-lg shadow-md w-full max-w-md text-center">
+              <h3 class="text-xl text-yellow-400 font-semibold mb-4">Note ce personnage</h3>
+
+              <!-- Champ Symfony caché pour compatibilité -->
+              <div class="hidden">{{ form_widget(ratingForm.score) }}</div>
+
+              <!-- Étoiles personnalisées cliquables -->
+              <div class="flex justify-center gap-2 text-3xl mb-4">
+                {% for i in 1..5 %}
+                  <label for="score_{{ i }}" class="cursor-pointer">
+                    <input type="radio" name="rating[score]" value="{{ i }}" id="score_{{ i }}" />
+                    <span class="star text-gray-500 transition duration-150 hover:text-yellow-300 peer-checked:text-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400">⭐</span>
+                  </label>
+                {% endfor %}
+              </div>
+
+              <button type="submit" class="mt-4 px-6 py-2 bg-red-600 hover:bg-yellow-400 text-white hover:text-black rounded-lg font-semibold transition">⚡ Noter</button>
+            </div>
             {{ form_end(ratingForm) }}
           {% endif %}
         {% else %}
-          <p class="text-red-500">
-            Tu dois être connecté pour noter ce personnage. <a href="{{ path('app_login') }}" class="text-blue-500">Se connecter</a>
+          <p class="text-red-400 font-semibold">
+            Tu dois être connecté pour noter ce personnage.
+            <a href="{{ path('app_login') }}" class="text-blue-400 underline ml-2">Se connecter</a>
           </p>
         {% endif %}
       </div>

@@ -60,7 +60,7 @@ class AppFixtures extends Fixture
             [
                 'name' => 'Michelle Chang',
                 'games' => [$tekken1, $tekken2],
-                'description' => 'D\'origine amérindienne et chinoise, Michelle entre dans le tournoi pour venger la mort de son père, tué par la Mishima Zaibatsu.',
+                'description' => "D'origine amérindienne et chinoise, Michelle entre dans le tournoi pour venger la mort de son père, tué par la Mishima Zaibatsu.",
             ],
             [
                 'name' => 'Yoshimitsu',
@@ -70,7 +70,11 @@ class AppFixtures extends Fixture
             [
                 'name' => 'Jack',
                 'games' => [$tekken1],
-                'description' => 'Robot militaire conçu par l\'Union Soviétique, Jack est envoyé pour éliminer Kazuya Mishima.',
+                'description' => "Il fait sa seule apparition canonique en tant que personnage jouable dans le premier opus Tekken.
+
+Il est le premier robot de la série Jack et a été créé par le Dr.Bosconovitch pour les besoins de l'armée russe. En découvrant l'intention qu'avait Kazuya Mishima de réaliser un coup d'État, l'ex Union soviétique envoie Jack au tournoi pour l'éliminer.
+
+En combat, Jack utilise la force brute.",
             ],
             [
                 'name' => 'Lee Chaolan',
@@ -95,17 +99,19 @@ class AppFixtures extends Fixture
             [
                 'name' => 'Anna Williams',
                 'games' => [$tekken1, $tekken2],
-                'description' => 'Sœur cadette de Nina, Anna est également une tueuse à gages, rivalisant constamment avec sa sœur.',
+                'description' => 'Femme fatale, Anna ne recule devant rien pour affronter sa sœur et rivale de toujours : Nina Williams. Leur rivalité trouve ses origines dans leur enfance, alors que Richard, leur père, favorisait Nina au détriment de sa soeur Anna',
             ],
             [
                 'name' => 'Armor King',
                 'games' => [$tekken1, $tekken2],
-                'description' => 'Lutteur masqué et rival de King, Armor King cherche à prouver sa supériorité sur le ring.',
+                'description' => 'l apparaît pour la première fois en tant que personnage jouable dans la version console du premier opus Tekken. Sa présence dans Tekken 2 marque la fin de ses apparitions canoniques.
+                Catcheur masqué portant une armure et un masque de jaguar noir, Armor King est le rival du premier King. Lors de son combat contre king, il perd un œil à cause de ce dernier, ce qui le pousse vers le catch underground. Malgré leur rivalité, une amitié les unit, et Armor King participe aux deux premiers King of Iron Fist Tournament pour le défier.',
             ],
             [
                 'name' => 'Ganryu',
                 'games' => [$tekken1, $tekken2],
-                'description' => 'Sumotori déshonoré, Ganryu entre dans le tournoi pour restaurer sa réputation et construire son propre dohyō.',
+                'description' => "Autrefois le plus jeune lutteur sumo à avoir été promu ōzeki, Ganryu n'a pas pu obtenir le rang de yokozuna à cause de son comportement inapproprié. Suite à cela, il est entré dans la clandestinité puis a travaillé en tant que garde du corps de Kazuya Mishima. Quelques années plus tard, Ganryu a ouvert sa propre écurie de sumo, puis un restaurant appelé le Chanko Paradise et est devenu streamer.
+                Ses participations aux différents tournois sont souvent liées à ses projets professionnels qu'il cherche à promouvoir. Toutefois, il participe au deuxième tournoi pour conquérir le cœur de Michelle Chang dont il est amoureux.",
             ],
             [
                 'name' => 'Wang Jinrei',
@@ -120,7 +126,14 @@ class AppFixtures extends Fixture
             [
                 'name' => 'Heihachi Mishima',
                 'games' => [$tekken1, $tekken2],
-                'description' => 'Patriarche impitoyable de la famille Mishima, Heihachi organise le tournoi pour asseoir son pouvoir.',
+                'description' => "Il apparaît pour la première fois en tant que personnage jouable dans la version console du premier opus Tekken. Il revient dans tous les opus suivants.
+                Personnage emblématique jouant un rôle de premier plan dans les intrigues de Tekken, Heihachi est un combattant redoutable doué de capacités hors du commun. En sa qualité de chef de la Mishima Zaibatsu, il a créé les tournois King of Iron Fist qui sont pour lui l'occasion de mener à bien ses ambitions.
+
+                Fils de Jinpachi Mishima, en l'emprisonnant, il est devenu le patriarche de sa famille. Découvrant que sa femme, Kazumi, est possédée par le diable, il décide de l'éliminer avant de se rendre compte que son jeune fils Kazuya l'est lui aussi. Heihachi prend donc la décision de le jeter du haut d'une falaise, provoquant la haine viscérale qu'éprouve Kazuya à son encontre. Depuis, les deux hommes cherchent à s'entre-tuer. Réalisant que son petit-fils Jin Kazama est à son tour possédé, Heihachi le trahit pour mener à bien ses projets. Dès lors, leur relation se détériore menant à une haine réciproque. Père adoptif de Lee Chaolan, il a également un fils illégitime, Lars Alexandersson, et est supposément le père de Reina. Heihachi possède également un ours de compagnie nommé Kuma pour qui il éprouve de l'affection.
+
+                Ne reculant devant rien pour assouvir sa soif de pouvoir, Heihachi a de nombreux méfaits à son actif. Néanmoins, s'il est l'antagoniste de plusieurs jeux, il lui arrive parfois de faire preuve de légèreté. Après avoir combattu à plusieurs reprises des détenteurs du gène démoniaque, il y voit par la suite l'occasion de renforcer son pouvoir avec toujours comme objectif : la domination du monde.
+
+                À l'origine, Heihachi partageait la majeure partie du gameplay de Kazuya avant de fortement se démarquer et de posséder sa propre variante du karaté de combat de style Mishima.",
             ],
             [
                 'name' => 'Devil',
@@ -198,7 +211,7 @@ class AppFixtures extends Fixture
         // Ajout d’un utilisateur admin
         $admin = new User();
         $admin->setUsername('admin')
-            ->setEmail('admin@tekken.com') // <-- email ajouté ici
+            ->setEmail('admin@tekken.com')
             ->setRoles(['ROLE_ADMIN']);
         $adminPassword = $this->hasher->hashPassword($admin, 'adminpass');
         $admin->setPassword($adminPassword);
@@ -209,7 +222,7 @@ class AppFixtures extends Fixture
         for ($i = 0; $i < 10; $i++) {
             $user = new User();
             $user->setUsername($this->faker->userName())
-                ->setEmail($this->faker->email()) // <-- email ajouté ici
+                ->setEmail($this->faker->email())
                 ->setRoles(['ROLE_USER']);
 
             $password = $this->faker->password();
@@ -230,7 +243,7 @@ class AppFixtures extends Fixture
         // Utilisateur de test fixe
         $user = new User();
         $user->setUsername('testuser')
-            ->setEmail('test1@tekken.com') // <-- email ajouté ici
+            ->setEmail('test@tekken.com') // <-- email ajouté ici
             ->setRoles(['ROLE_USER']);
         $hashedPassword = $this->hasher->hashPassword($user, 'password');
         $user->setPassword($hashedPassword);

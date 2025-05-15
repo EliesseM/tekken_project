@@ -1,22 +1,38 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-  Inscription
+  Inscription - Tekken Arena
 {% endblock %}
 
 {% block body %}
-  {% for flash_error in app.flashes('verify_email_error') %}
-    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">{{ flash_error }}</div>
-  {% endfor %}
+  <div class="min-h-screen bg-gradient-to-br from-black via-gray-900 to-red-900 text-white py-12 px-6 flex items-center justify-center">
+    <div class="w-full max-w-md bg-gray-800 bg-opacity-90 p-8 rounded-2xl shadow-xl border border-red-700 relative">
+      <!-- Glow border -->
+      <div class="absolute -inset-1 bg-gradient-to-br from-red-700 via-yellow-500 to-red-700 blur-xl opacity-25 rounded-2xl"></div>
 
-  <h1 class="text-2xl font-bold mb-4">Inscription</h1>
+      <h1 class="relative z-10 text-3xl font-extrabold text-red-500 mb-6 text-center">🔥 Rejoins le Tekken Tournament</h1>
 
-  {{ form_start(registrationForm, { attr: { class: 'space-y-4' } }) }}
-  {{ form_row(registrationForm.username, { attr: { class: 'w-full px-3 py-2 border rounded' } }) }}
-  {{ form_row(registrationForm.email, { attr: { class: 'w-full px-3 py-2 border rounded' } }) }}
-  {{ form_row(registrationForm.plainPassword, { label: 'Mot de passe', attr: { class: 'w-full px-3 py-2 border rounded' } }) }}
-  {{ form_row(registrationForm.agreeTerms) }}
+      {% for flash_error in app.flashes('verify_email_error') %}
+        <div class="relative z-10 bg-red-100 border border-red-400 text-red-800 px-4 py-3 rounded mb-4">{{ flash_error }}</div>
+      {% endfor %}
 
-  <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">S'inscrire</button>
-  {{ form_end(registrationForm) }}
+      {{ form_start(registrationForm, { attr: { class: 'space-y-6 relative z-10' } }) }}
+
+      {{ form_row(registrationForm.username, { attr: { class: 'w-full px-4 py-2 rounded-lg bg-gray-900 text-white border border-gray-600 focus:ring-2 focus:ring-red-500' } }) }}
+
+      {{ form_row(registrationForm.email, { attr: { class: 'w-full px-4 py-2 rounded-lg bg-gray-900 text-white border border-gray-600 focus:ring-2 focus:ring-red-500' } }) }}
+
+      {{ form_row(registrationForm.plainPassword, { label: 'Mot de passe', attr: { class: 'w-full px-4 py-2 rounded-lg bg-gray-900 text-white border border-gray-600 focus:ring-2 focus:ring-yellow-400' } }) }}
+
+      <div class="text-sm text-gray-400">{{ form_row(registrationForm.agreeTerms) }}</div>
+
+      <button type="submit" class="w-full mt-4 bg-red-700 hover:bg-yellow-500 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out shadow-lg shadow-yellow-500/20">🥋 S'inscrire</button>
+
+      {{ form_end(registrationForm) }}
+
+      <p class="text-center text-sm text-gray-400 mt-4 relative z-10">
+        Déjà un compte ? <a href="{{ path('app_login') }}" class="text-yellow-400 hover:underline">Connecte-toi ici</a>.
+      </p>
+    </div>
+  </div>
 {% endblock %}

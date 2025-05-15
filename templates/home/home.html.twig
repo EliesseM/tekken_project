@@ -1,20 +1,49 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}
+  Accueil - Tekken Timeline
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+  <div class="bg-gradient-to-br from-black via-gray-900 to-red-900 text-white min-h-screen py-12 px-6">
+    <div class="max-w-5xl mx-auto">
+      <!-- HEADER -->
+      <header class="mb-12 text-center">
+        <h1 class="text-5xl font-extrabold text-red-600 mb-4"></h1>
+        <img src="{{ asset('bundles/images/tekken.png') }}" alt="Tekken Banner" class="rounded-xl shadow-xl mx-auto mb-6 w-72 h-auto object-cover" />
+        <p class="text-lg text-gray-300">Redécouvrez les débuts explosifs de la légende des jeux de combat 3D.</p>
+      </header>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+      <!-- TEKKEN 1 -->
+      <section class="bg-gray-800 bg-opacity-70 rounded-2xl shadow-lg p-8 mb-10">
+        <h2 class="text-3xl font-bold text-yellow-400 mb-4">🎮 Tekken (1994)</h2>
+        <img src="{{ asset('bundles/images/Tekken1.png') }}" alt="Tekken 1" class="rounded-lg mb-6 shadow-md mx-auto w-64 h-auto object-cover" />
+        <p class="mb-4 leading-relaxed text-gray-200">
+          Le tout premier <strong>Tekken</strong> sort en arcade en 1994, puis sur PlayStation en 1995. C’est l’un des premiers jeux de combat 3D à rivaliser avec <em>Virtua Fighter</em>. Développé par <strong>Namco</strong>, il introduit une mécanique de jeu innovante où chaque bouton correspond à un membre du personnage (bras/jambes gauche/droite).
+        </p>
+        <p class="mb-4 leading-relaxed text-gray-300 italic">🎯 Anecdote : Tekken est le premier jeu à atteindre les 1 million d’exemplaires vendus sur PlayStation, aidé par sa profondeur de gameplay et son ambiance unique.</p>
+        <p class="leading-relaxed text-gray-300">
+          Le jeu introduit des figures emblématiques comme <strong>Kazuya Mishima</strong>, <strong>Paul Phoenix</strong> et <strong>King</strong>. L’histoire tourne autour du <strong>King of Iron Fist Tournament</strong> organisé par <strong>Heihachi Mishima</strong>, dans lequel Kazuya cherche à se venger de son père pour l’avoir jeté d’une falaise dans son enfance...
+        </p>
+      </section>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/HB/Desktop/Cours/11_semaine_14_02_avr-16_mai_2025/Symfony/projet_symfony_mosbah_eliesse/src/Controller/HomeController.php</code></li>
-        <li>Your template at <code>C:/Users/HB/Desktop/Cours/11_semaine_14_02_avr-16_mai_2025/Symfony/projet_symfony_mosbah_eliesse/templates/home/index.html.twig</code></li>
-    </ul>
-</div>
+      <!-- TEKKEN 2 -->
+      <section class="bg-gray-900 bg-opacity-80 rounded-2xl shadow-lg p-8">
+        <h2 class="text-3xl font-bold text-red-500 mb-4">🥋 Tekken 2 (1995)</h2>
+        <img src="{{ asset('bundles/images/Tekken2.png') }}" alt="Tekken 2" class="rounded-lg mb-6 shadow-md mx-auto w-64 h-auto object-cover" />
+        <p class="mb-4 leading-relaxed text-gray-200">
+          <strong>Tekken 2</strong> sort en arcade en 1995 et sur PlayStation en 1996. Il améliore tout ce que le premier opus avait lancé : plus de personnages, de combos, d’arènes variées, et une histoire plus dense autour de la dynastie Mishima.
+        </p>
+        <p class="mb-4 leading-relaxed text-gray-300 italic">
+          🔥 Anecdote : L’écran d’intro de Tekken 2 est considéré comme l’un des plus iconiques de l’histoire du jeu vidéo. Il introduit également l’un des méchants les plus charismatiques : <strong>Devil Kazuya</strong>.
+        </p>
+        <p class="leading-relaxed text-gray-300">
+          L’histoire suit <strong>Kazuya</strong>, désormais à la tête de la Mishima Zaibatsu, qui lance un nouveau tournoi. Son père, <strong>Heihachi</strong>, revient pour se venger. Ce jeu marque le début de la descente aux enfers de la famille Mishima et pose les bases de la saga mythologique que deviendra Tekken.
+        </p>
+      </section>
+
+      <!-- FOOTER -->
+      <footer class="text-center mt-12 text-sm text-gray-400">© {{ 'now'|date('Y') }} Tekken Legacy - Fan Page. Ce site n'est pas affilié à Bandai Namco.</footer>
+    </div>
+  </div>
 {% endblock %}

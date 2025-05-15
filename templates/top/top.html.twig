@@ -1,20 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello TopController!{% endblock %}
+{% block title %}
+  Top 10 des combattants
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+  <div class="min-h-screen bg-gradient-to-b from-black via-gray-900 to-black text-white py-12 px-6">
+    <div class="max-w-5xl mx-auto">
+      <h1 class="text-4xl text-yellow-400 font-bold mb-8 text-center">🥇 Top 10 des combattants</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/HB/Desktop/Cours/11_semaine_14_02_avr-16_mai_2025/Symfony/projet_symfony_mosbah_eliesse/src/Controller/TopController.php</code></li>
-        <li>Your template at <code>C:/Users/HB/Desktop/Cours/11_semaine_14_02_avr-16_mai_2025/Symfony/projet_symfony_mosbah_eliesse/templates/top/index.html.twig</code></li>
-    </ul>
-</div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {% for row in topCharacters %}
+          {% set character = row.character %}
+          {% set avg = row.avgRating|number_format(1) %}
+          <div class="bg-gray-800 p-6 rounded-xl border border-yellow-500 shadow-lg flex items-center gap-4">
+            <img src="{{ asset('images/' ~ character.image) }}" alt="{{ character.name }}" class="w-24 h-24 object-cover rounded-lg border-2 border-yellow-400" />
+            <div>
+              <h2 class="text-xl font-bold text-yellow-300">{{ character.name }}</h2>
+              <p class="text-yellow-200">Note moyenne : ⭐ {{ avg }}/5</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
 {% endblock %}

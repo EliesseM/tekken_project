@@ -1,20 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello RatingController!{% endblock %}
+{% block title %}
+  Mes personnages notés
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
+  {% if ratings is empty %}
+    <p>Aucune note enregistrée.</p>
+  {% else %}
     <ul>
-        <li>Your controller at <code>C:/Users/HB/Desktop/Cours/11_semaine_14_02_avr-16_mai_2025/Symfony/projet_symfony_mosbah_eliesse/src/Controller/RatingController.php</code></li>
-        <li>Your template at <code>C:/Users/HB/Desktop/Cours/11_semaine_14_02_avr-16_mai_2025/Symfony/projet_symfony_mosbah_eliesse/templates/rating/index.html.twig</code></li>
+      {% for rating in ratings %}
+        <li>
+          <img src="{{ asset('images/' ~ rating.character.image) }}" alt="{{ rating.character.name }}" width="150" />
+          <strong>{{ rating.character.name }}</strong>
+          <br />
+          Note : {{ rating.score }}/5
+          <br />
+          Date : {{ rating.createdAt|date('d/m/Y') }}
+          <br />
+        </li>
+      {% endfor %}
     </ul>
-</div>
+  {% endif %}
 {% endblock %}

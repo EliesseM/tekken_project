@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name: '`character`')]
 class Character
 {
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -26,6 +27,9 @@ class Character
     #[ORM\Column(length: 255)]
     private ?string $image = null;
 
+    #[ORM\OneToMany(mappedBy: 'character', targetEntity: Rating::class, orphanRemoval: true)]
+    private Collection $ratings;
+
     /**
      * @var Collection<int, Game>
      */
@@ -38,6 +42,11 @@ class Character
     public function __construct()
     {
         $this->games = new ArrayCollection();
+        $this->ratings = new ArrayCollection();
+    }
+    public function getRatings(): Collection
+    {
+        return $this->ratings;
     }
 
     public function getId(): ?int
