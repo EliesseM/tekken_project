@@ -40,4 +40,25 @@ class RatingRepository extends ServiceEntityRepository
             ->getQuery()
             ->getSingleScalarResult();
     }
+    public function getAverageRatingsForCharacters(array $characterIds): array
+    {
+        if (empty($characterIds)) {
+            return [];
+        }
+
+        $results = $this->createQueryBuilder('r')
+            ->select('IDENTITY(r.character) AS characterId, AVG(r.score) AS avgScore')
+            ->where('r.character IN (:ids)')
+            ->setParameter('ids', $characterIds)
+            ->groupBy('r.character')
+            ->getQuery()
+            ->getResult();
+
+        $averages = [];
+        foreach ($results as $row) {
+            $averages[$row['characterId']] = $row['avgScore'];
+        }
+
+        return $averages;
+    }
 }

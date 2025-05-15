@@ -40,7 +40,10 @@ class AppFixtures extends Fixture
             [
                 'name' => 'Kazuya Mishima',
                 'games' => [$tekken1, $tekken2],
-                'description' => 'Fils de Heihachi Mishima, Kazuya cherche à se venger de son père après avoir été jeté dans un ravin durant son enfance. Il maîtrise le karaté style Mishima.',
+                'description' => "Il apparaît pour la première fois en tant que personnage jouable dans le premier opus Tekken.
+                Personnage emblématique et principal antagoniste, Kazuya joue un rôle central dans les intrigues de Tekken. Ses qualités de combattants et sa capacité à se métamorphoser en Devil en font un adversaire redoutable.
+                Fils de Heihachi et Kazumi Mishima, Kazuya a hérité du gène démoniaque de sa mère. Le découvrant, son père le jette du haut d'une falaise. Kazuya y survit et nourrit depuis une haine viscérale pour Heihachi. Il parvient à se venger en remportant le combat final du premier tournoi et en réalisant un coup d'État sur la Mishima Zaibatsu. Brutal et oppressant, Kazuya baigne dans de nombreuses affaires illégales. Jun Kazama participe au deuxième tournoi pour l'arrêter, mais leur rencontre débouche sur la naissance de leur fils : Jin Kazama. Kazuya perd face à Heihachi en finale du tournoi et est jeté dans un volcan.
+                Ayant survécu grâce à la G Corporation, Kazuya prend la tête de l'entreprise et cherche depuis à se venger de Heihachi. Il souhaite également éliminer Jin pour récupérer l'intégralité de son pouvoir démoniaque.",
             ],
             [
                 'name' => 'Paul Phoenix',
@@ -84,7 +87,12 @@ En combat, Jack utilise la force brute.",
             [
                 'name' => 'King',
                 'games' => [$tekken1, $tekken2],
-                'description' => 'Lutteur masqué au grand cœur, King participe au tournoi pour financer un orphelinat.',
+                'description' => "Il apparaît pour la première fois en tant que personnage jouable dans le premier opus Tekken. Sa présence dans Tekken 2 marque la fin de ses apparitions canoniques.
+                D'origine mexicaine, King cache son visage derrière un masque de jaguar. De sa jeunesse orpheline, il tire sa grande générosité et participe au premier tournoi afin d'ouvrir un orphelinat. Toutefois, le manque d'argent pour l'établissement va provoquer le début de son alcoolisme et de sa descente en enfer. Fort de son amitié avec Armor King, il remonte la pente et participe au deuxième tournoi.
+
+Quinze ans plus tard, King est attaqué et tué par Ogre. Son successeur, à qui il a tout appris, repend son masque et son nom. Son assassinat pousse alors les deux jaguars restants à essayer de se venger de la créature au cours du troisième tournoi.
+
+Par l'intermédiaire d'un pasteur qui l'incite à se lancer, King devient lutteur professionnel.",
             ],
             [
                 'name' => 'Kuma',

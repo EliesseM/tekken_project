@@ -8,7 +8,6 @@ use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mime\Address;
@@ -19,22 +18,24 @@ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegistrationController extends AbstractController
 {
-    public function __construct(private EmailVerifier $emailVerifier) {}
+    public function __construct(
+        private EmailVerifier $emailVerifier,
+        private EntityManagerInterface $entityManager
+    ) {}
 
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, Security $security, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Encode password
             $plainPassword = $form->get('plainPassword')->getData();
             $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
 
-            $entityManager->persist($user);
-            $entityManager->flush();
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
 
             // Send email confirmation
             $this->emailVerifier->sendEmailConfirmation(
@@ -42,12 +43,11 @@ class RegistrationController extends AbstractController
                 $user,
                 (new TemplatedEmail())
                     ->from(new Address('test@test.com', 'Tekken'))
-                    ->to((string) $user->getEmail())
+                    ->to($user->getEmail())
                     ->subject('Confirme ton adresse email')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
 
-            // Redirection vers page d'information après inscription
             return $this->redirectToRoute('app_registration_confirmation_email');
         }
 
@@ -59,20 +59,26 @@ class RegistrationController extends AbstractController
     #[Route('/verify/email', name: 'app_verify_email')]
     public function verifyUserEmail(Request $request, TranslatorInterface $translator): Response
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $userId = $request->get('id');
+
+        if (null === $userId) {
+            return $this->redirectToRoute('app_register');
+        }
+
+        $user = $this->entityManager->getRepository(User::class)->find($userId);
+
+        if (!$user) {
+            return $this->redirectToRoute('app_register');
+        }
 
         try {
-            /** @var User $user */
-            $user = $this->getUser();
             $this->emailVerifier->handleEmailConfirmation($request, $user);
         } catch (VerifyEmailExceptionInterface $exception) {
             $this->addFlash('verify_email_error', $translator->trans($exception->getReason(), [], 'VerifyEmailBundle'));
-
             return $this->redirectToRoute('app_register');
         }
 
         $this->addFlash('success', 'Ton adresse email a bien été vérifiée.');
-
         return $this->redirectToRoute('app_login');
     }
 

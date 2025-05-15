@@ -23,6 +23,7 @@ final class RatingController extends AbstractController
 
         return $this->render('rating/rating.html.twig', [
             'ratings' => $ratings,
+
         ]);
     }
 }
