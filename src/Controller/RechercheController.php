@@ -7,12 +7,13 @@ use App\Repository\CharacterRepository;
 use App\Repository\RatingRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class RechercheController extends AbstractController
 {
     #[Route('/recherche', name: 'app_recherche')]
-    public function recherche(Request $request, CharacterRepository $characterRepository, RatingRepository $ratingRepository)
+    public function recherche(Request $request, CharacterRepository $characterRepository, RatingRepository $ratingRepository): Response
     {
         $form = $this->createForm(CharacterSearchType::class);
         $form->handleRequest($request);
@@ -32,21 +33,19 @@ class RechercheController extends AbstractController
                     ->getQuery()
                     ->getResult();
 
-                // 🔥 Récupérer les moyennes de notation uniquement pour les personnages trouvés
                 $characterIds = array_map(fn($c) => $c->getId(), $characters);
 
                 if (!empty($characterIds)) {
                     $ratings = $ratingRepository->getAverageRatingsForCharacters($characterIds);
-                } else {
-                    $ratings = [];
                 }
             }
-
-            return $this->render('recherche/recherche.html.twig', [
-                'form' => $form->createView(),
-                'characters' => $characters,
-                'ratings' => $ratings,
-            ]);
         }
+
+        // ✅ Ce retour est toujours exécuté, peu importe l'état du formulaire
+        return $this->render('recherche/recherche.html.twig', [
+            'form' => $form->createView(),
+            'characters' => $characters,
+            'ratings' => $ratings,
+        ]);
     }
 }
