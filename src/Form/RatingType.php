@@ -23,7 +23,7 @@ class RatingType extends AbstractType
                 ],
                 'expanded' => true, // Affiche sous forme de boutons radio
                 'multiple' => false,
-                'label' => false, // On masque le label car l’UI le gère avec des étoiles
+                'label' => false, // On masque le label car l’UI le gère avec des éclairs
             ]);
     }
 

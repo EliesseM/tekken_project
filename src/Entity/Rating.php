@@ -32,7 +32,6 @@ class Rating
     #[ORM\Column(type: 'datetime')]
     private \DateTimeInterface $createdAt;
 
-    // SETTERS & GETTERS
 
     public function getId(): int
     {
