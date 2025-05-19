@@ -5,3 +5,23 @@
 body {
   background-color: skyblue;
 }
+
+.lightning {
+  transform-origin: center;
+}
+
+.peer:checked + .lightning {
+  animation: clickPop 0.3s ease-in-out;
+}
+
+@keyframes clickPop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.25) rotate(5deg);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

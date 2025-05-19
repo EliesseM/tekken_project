@@ -23,10 +23,19 @@
           {% endfor %}
         </p>
 
-        <p class="text-lg text-red-600 font-bold mb-6">
-          ⭐ Note moyenne :{% set avg = averageRating ?? '—' %}
-          {{ avg ? (avg|number_format(1)) ~ '/5' : 'Pas encore noté' }}
-        </p>
+        {% set avg = averageRating ?? 0 %}
+        <div class="text-lg text-red-600 font-bold mb-6 text-center">
+          ⚡ Note moyenne :{% if avg > 0 %}
+            {{ avg|number_format(1) }}/5<div class="flex justify-center mt-2">
+              {% for i in 1..5 %}
+                {% set size = 1.2 + i * 0.2 %}
+                <span class="text-yellow-400 transition" style="font-size: {{ size }}rem; opacity: {{ i <= avg ? 1 : 0.2 }};">⚡</span>
+              {% endfor %}
+            </div>
+          {% else %}
+            <span class="italic text-white">Pas encore noté</span>
+          {% endif %}
+        </div>
 
         {% if app.user %}
           {% if existingRating %}
@@ -39,12 +48,13 @@
               <!-- Champ Symfony caché pour compatibilité -->
               <div class="hidden">{{ form_widget(ratingForm.score) }}</div>
 
-              <!-- Étoiles personnalisées cliquables -->
+              <!-- Éclairs personnalisés cliquables -->
+              <!-- Éclairs personnalisés cliquables avec effet de sélection -->
               <div class="flex justify-center gap-2 text-3xl mb-4">
                 {% for i in 1..5 %}
-                  <label for="score_{{ i }}" class="cursor-pointer">
-                    <input type="radio" name="rating[score]" value="{{ i }}" id="score_{{ i }}" />
-                    <span class="star text-gray-500 transition duration-150 hover:text-yellow-300 peer-checked:text-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400">⭐</span>
+                  <label for="score_{{ i }}" class="cursor-pointer group relative">
+                    <input type="radio" name="rating[score]" value="{{ i }}" id="score_{{ i }}" class="peer hidden" />
+                    <span class="lightning block text-gray-500 transition-all duration-200 ease-out group-hover:text-yellow-300 peer-checked:text-yellow-400 peer-checked:scale-125 peer-checked:drop-shadow-lg" style="font-size: {{ 1.5 + i * 0.3 }}rem;">⚡</span>
                   </label>
                 {% endfor %}
               </div>
