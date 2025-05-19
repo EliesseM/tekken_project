@@ -146,14 +146,6 @@ Sa fille porte le même nom qu'elle et dissimule également son visage derrière
 Pratiquant le Ninjutsu Manji, à l'origine Kunimitsu partageait la majeure partie du gameplay de Yoshimitsu. Elle s'est ensuite démarquée d'opus en opus, jusqu'à posséder son propre style de combat.",
             ],
             [
-                'name' => 'Panda',
-                'games' => [$tekken1, $tekken2],
-                'description' => "Il apparaît pour la première fois en tant que personnage jouable dans la version console du premier opus Tekken. Sa présence dans Tekken 2 marque la fin de ses apparitions canoniques.
-                Panda est un panda géant et l'animal de compagnie de Xiaoyu Ling. Il est le gardien du dojo de cette dernière et participe au tournoi pour la protéger. Il est également le rival de Kuma, l'ours de Heihachi Mishima.
-
-                Panda utilise le style de combat du Kung Fu.",
-            ],
-            [
                 'name' => 'Anna Williams',
                 'games' => [$tekken1, $tekken2],
                 'description' => 'Femme fatale, Anna ne recule devant rien pour affronter sa sœur et rivale de toujours : Nina Williams. Leur rivalité trouve ses origines dans leur enfance, alors que Richard, leur père, favorisait Nina au détriment de sa soeur Anna',
