@@ -19,7 +19,7 @@
     {% endblock %}
   </head>
   <body class="bg-black text-white">
-    <nav class="bg-gradient-to-r from-black via-gray-900 to-red-900 border-b border-red-600 shadow-md">
+    <nav class="bg-gradient-to-r from-black via-gray-900 to-red-900 shadow-md">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-center h-16 items-center">
           <div class="flex space-x-6 text-sm font-bold uppercase tracking-widest">
@@ -30,18 +30,24 @@
             <a href="{{ path('app_top') }}" class="hover:text-yellow-400 transition">Top 10</a>
 
             {% if app.user %}
-              <span class="text-gray-300">Bienvenue {{ app.user.username }}</span>
               <a href="{{ path('app_logout') }}" class="hover:text-yellow-400 transition">Déconnexion</a>
             {% else %}
               <a href="{{ path('app_login') }}" class="hover:text-yellow-400 transition">Connexion</a>
               <a href="{{ path('app_register') }}" class="hover:text-yellow-400 transition">Inscription</a>
             {% endif %}
 
-            <a href="{{ path('admin') }}" class="hover:text-yellow-400 transition">Administration</a>
+            {% if is_granted('ROLE_ADMIN') %}
+              <a href="{{ path('admin') }}" class="hover:text-yellow-400 transition">Administration</a>
+            {% endif %}
           </div>
         </div>
       </div>
     </nav>
+    {% if app.user %}
+      <div class="bg-gradient-to-r from-black via-gray-900 to-red-900 shadow-md py-4">
+        <p class="text-center text-white text-lg font-bold uppercase tracking-widest">Bienvenue {{ app.user.username }} 👋</p>
+      </div>
+    {% endif %}
 
     {% block body %}
 

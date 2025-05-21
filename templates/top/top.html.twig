@@ -14,7 +14,7 @@
           {% set character = row.character %}
           {% set avg = row.avgRating|number_format(1) %}
           <div class="bg-gray-800 p-6 rounded-xl border border-yellow-500 shadow-lg flex items-center gap-4">
-            <img src="{{ asset('images/' ~ character.image) }}" alt="{{ character.name }}" class="w-24 h-24 object-cover rounded-lg border-2 border-yellow-400" />
+            <img src="{{ asset('images/' ~ character.image) }}" alt="{{ character.name }}" class="w-65 h-45 object-cover rounded-lg border-2 border-yellow-400" />
             <div>
               <h2 class="text-xl font-bold text-yellow-300">{{ character.name }}</h2>
               <p class="text-yellow-200">Note moyenne : ⭐ {{ avg }}/5</p>
