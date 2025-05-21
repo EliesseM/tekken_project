@@ -23,4 +23,14 @@ class CharacterRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+    // src/Repository/CharacterRepository.php
+
+    public function findByNameLike(string $term): array
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.name LIKE :term')
+            ->setParameter('term', '%' . $term . '%')
+            ->getQuery()
+            ->getResult();
+    }
 }

@@ -20,28 +20,18 @@ class RechercheController extends AbstractController
 
         $characters = [];
         $ratings = [];
-        $searchTerm = '';
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-            $searchTerm = $data['search'] ?? '';
+            $searchTerm = $form->get('search')->getData();
 
-            if ($searchTerm) {
-                $characters = $characterRepository->createQueryBuilder('c')
-                    ->where('c.name LIKE :term')
-                    ->setParameter('term', '%' . $searchTerm . '%')
-                    ->getQuery()
-                    ->getResult();
+            $characters = $characterRepository->findByNameLike($searchTerm);
 
+            if (!empty($characters)) {
                 $characterIds = array_map(fn($c) => $c->getId(), $characters);
-
-                if (!empty($characterIds)) {
-                    $ratings = $ratingRepository->getAverageRatingsForCharacters($characterIds);
-                }
+                $ratings = $ratingRepository->getAverageRatingsForCharacters($characterIds);
             }
         }
 
-        // ✅ Ce retour est toujours exécuté, peu importe l'état du formulaire
         return $this->render('recherche/recherche.html.twig', [
             'form' => $form->createView(),
             'characters' => $characters,
