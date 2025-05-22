@@ -23,13 +23,15 @@ class RegistrationFormType extends AbstractType
                 'label' => 'Adresse email',
             ])
             ->add('agreeTerms', CheckboxType::class, [
+                'label' => 'J’accepte les conditions de l’Arène Tekken',
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'You should agree to our terms.',
+                        'message' => 'Tu dois accepter les conditions pour t’inscrire.',
                     ]),
                 ],
             ])
+
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
