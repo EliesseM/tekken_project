@@ -1,11 +1,9 @@
-Mon projet vise à réunir les personnages emblématiques de Tekken 1 et Tekken 2 afin de mettre en lumière ces deux jeux cultes. Les utilisateurs peuvent découvrir les combattants, leur attribuer une note, consulter un classement des 10 personnages les mieux notés, ainsi que rechercher un personnage par son nom.
+Mon projet a pour objectif de rassembler les personnages emblématiques de Tekken 1 et Tekken 2, afin de mettre en lumière ces deux jeux cultes. Les utilisateurs peuvent découvrir les combattants, leur attribuer une note, consulter un classement des 10 personnages les mieux notés, ainsi que rechercher un personnage par son nom.
 
-J'ai eu beaucoup de mal sur la creation de la verification du mail, j'ai reussi a faire la redirection de la verification par mail directement sur la page de connection mais pas a affiché un message pour dire que le mail a été validé.
+Sinon, dans l’ensemble, rien de vraiment bloquant. J’ai passé pas mal de temps à chercher un style avec Tailwind qui corresponde à mon thème, et je suis assez satisfait du résultat final.
 
-Sinon dans l'enssemble rien de réellement bloquant, j'ai cherché longtemps avec tailwind un style qui collerait avec mon thème et je suis assez content du résultat.
-
-Je me suis bien amusé sur la fabrication de page d'erreur personalisé, tu pourras tester la 403 en te connectant au test et en essayant d'aller dans l'admin.
-Je te met les identifiants qui seront toujours le mail et mdp
+Je me suis bien amusé à créer des pages d’erreur personnalisées. Tu pourras tester la page 403 en te connectant avec le compte test et en essayant d’accéder à l’admin.
+Je te mets les identifiants : ce seront toujours les mêmes mail et mot de passe.
 
 #Utilisateur de test
 
@@ -16,3 +14,5 @@ mdp: password
 
 identifiant: admin@tekken.com
 mdp: adminpass
+
+Utilisation de l'ia 6/10

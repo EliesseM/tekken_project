@@ -15,14 +15,6 @@ class CharacterRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Character::class);
     }
-    // public function findByName(string $name): array
-    // {
-    //     return $this->createQueryBuilder('c')
-    //         ->where('c.name LIKE :name')
-    //         ->setParameter('name', '%' . $name . '%')
-    //         ->getQuery()
-    //         ->getResult();
-    // }
 
     public function findByNameLike(string $term): array
     {
