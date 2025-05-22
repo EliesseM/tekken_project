@@ -5,10 +5,12 @@
 {% endblock %}
 
 {% block body %}
-  {% for label, messages in app.flashes %}
-    {% for message in messages %}
-      <div class="alert alert-{{ label }}">{{ message }}</div>
-    {% endfor %}
+  {% for message in app.flashes('success') %}
+    <div class="bg-green-600 text-white font-bold text-center py-3 px-4 mb-6 rounded-xl shadow-md">✅ {{ message }}</div>
+  {% endfor %}
+
+  {% for message in app.flashes('verify_email_error') %}
+    <div class="bg-red-600 text-white font-bold text-center py-3 px-4 mb-6 rounded-xl shadow-md">❌ {{ message }}</div>
   {% endfor %}
 
   <div class="min-h-screen bg-gradient-to-br from-black via-gray-900 to-red-900 text-white flex items-center justify-center px-6 py-12">

@@ -1,3 +1,5 @@
+Mon projet vise à réunir les personnages emblématiques de Tekken 1 et Tekken 2 afin de mettre en lumière ces deux jeux cultes. Les utilisateurs peuvent découvrir les combattants, leur attribuer une note, consulter un classement des 10 personnages les mieux notés, ainsi que rechercher un personnage par son nom.
+
 J'ai eu beaucoup de mal sur la creation de la verification du mail, j'ai reussi a faire la redirection de la verification par mail directement sur la page de connection mais pas a affiché un message pour dire que le mail a été validé.
 
 Sinon dans l'enssemble rien de réellement bloquant, j'ai cherché longtemps avec tailwind un style qui collerait avec mon thème et je suis assez content du résultat.
