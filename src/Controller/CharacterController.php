@@ -110,7 +110,7 @@ final class CharacterController extends AbstractController
      ORDER BY avgRating DESC'
         )
             ->setMaxResults(10)
-            ->getArrayResult(); // 👈 très important ici
+            ->getArrayResult();
 
 
         return $this->render('top/top.html.twig', [
