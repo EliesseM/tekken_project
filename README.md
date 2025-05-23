@@ -4,7 +4,7 @@ Sinon, dans l’ensemble, rien de vraiment bloquant. J’ai passé pas mal de te
 
 Je me suis bien amusé à créer des pages d’erreur personnalisées. Tu pourras tester la page 403 en te connectant avec le compte test et en essayant d’accéder à l’admin.
 
-Je mets les identifiants : ce seront toujours les mêmes mail et mot de passe, il ne faut pas oublier de lancé mailtrap.
+Je mets les identifiants ci dessous, ce seront toujours les mêmes mail et mot de passe, il ne faut pas oublier de lancer mailtrap.
 
 #Utilisateur de test
 
